@@ -1119,6 +1119,54 @@ export interface ContainerRegistryImageDeletedEventData extends ContainerRegistr
 
 /**
  * @interface
+ * An interface representing ContainerRegistryArtifactEventData.
+ * The content of the event request message.
+ *
+ */
+export interface ContainerRegistryArtifactEventData {
+  /**
+   * @member {string} [id] The event ID.
+   */
+  id?: string;
+  /**
+   * @member {Date} [timestamp] The time at which the event occurred.
+   */
+  timestamp?: Date;
+  /**
+   * @member {string} [action] The action that encompasses the provided event.
+   */
+  action?: string;
+  /**
+   * @member {ContainerRegistryArtifactEventTarget} [target] The target of the
+   * event.
+   */
+  target?: ContainerRegistryArtifactEventTarget;
+}
+
+/**
+ * @interface
+ * An interface representing ContainerRegistryChartPushedEventData.
+ * Schema of the Data property of an EventGridEvent for a
+ * Microsoft.ContainerRegistry.ChartPushed event.
+ *
+ * @extends ContainerRegistryArtifactEventData
+ */
+export interface ContainerRegistryChartPushedEventData extends ContainerRegistryArtifactEventData {
+}
+
+/**
+ * @interface
+ * An interface representing ContainerRegistryChartDeletedEventData.
+ * Schema of the Data property of an EventGridEvent for a
+ * Microsoft.ContainerRegistry.ChartDeleted event.
+ *
+ * @extends ContainerRegistryArtifactEventData
+ */
+export interface ContainerRegistryChartDeletedEventData extends ContainerRegistryArtifactEventData {
+}
+
+/**
+ * @interface
  * An interface representing ContainerRegistryEventTarget.
  * The target of the event.
  *
@@ -1223,6 +1271,43 @@ export interface ContainerRegistryEventSource {
    * Changes after each restart.
    */
   instanceID?: string;
+}
+
+/**
+ * @interface
+ * An interface representing ContainerRegistryArtifactEventTarget.
+ * The target of the event.
+ *
+ */
+export interface ContainerRegistryArtifactEventTarget {
+  /**
+   * @member {string} [mediaType] The MIME type of the artifact.
+   */
+  mediaType?: string;
+  /**
+   * @member {number} [size] The size in bytes of the artifact.
+   */
+  size?: number;
+  /**
+   * @member {string} [digest] The digest of the artifact.
+   */
+  digest?: string;
+  /**
+   * @member {string} [repository] The repository name of the artifact.
+   */
+  repository?: string;
+  /**
+   * @member {string} [tag] The tag of the artifact.
+   */
+  tag?: string;
+  /**
+   * @member {string} [name] The name of the artifact.
+   */
+  name?: string;
+  /**
+   * @member {string} [version] The version of the artifact.
+   */
+  version?: string;
 }
 
 /**
@@ -1477,6 +1562,28 @@ export interface MediaJobOutputAsset {
    * @member {string} [assetName] Gets the Job output asset name.
    */
   assetName?: string;
+}
+
+/**
+ * @interface
+ * An interface representing MediaJobOutputProgressEventData.
+ * Job Output Progress Event Data.
+ *
+ */
+export interface MediaJobOutputProgressEventData {
+  /**
+   * @member {string} [label] Gets the Job output label.
+   */
+  label?: string;
+  /**
+   * @member {number} [progress] Gets the Job output progress.
+   */
+  progress?: number;
+  /**
+   * @member {{ [propertyName: string]: string }} [jobCorrelationData] Gets the
+   * Job correlation data.
+   */
+  jobCorrelationData?: { [propertyName: string]: string };
 }
 
 /**
@@ -1916,7 +2023,7 @@ export interface MediaLiveEventIncomingVideoStreamsOutOfSyncEventData {
 /**
  * @interface
  * An interface representing MediaLiveEventIncomingDataChunkDroppedEventData.
- * Ingest fragment dropped event event data.
+ * Ingest fragment dropped event data.
  *
  */
 export interface MediaLiveEventIncomingDataChunkDroppedEventData {
@@ -1963,7 +2070,7 @@ export interface MediaLiveEventIncomingDataChunkDroppedEventData {
 /**
  * @interface
  * An interface representing MediaLiveEventIngestHeartbeatEventData.
- * Ingest fragment dropped event event data.
+ * Ingest fragment dropped event data.
  *
  */
 export interface MediaLiveEventIngestHeartbeatEventData {
