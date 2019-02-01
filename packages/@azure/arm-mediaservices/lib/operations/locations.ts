@@ -29,20 +29,20 @@ export class Locations {
   /**
    * Checks whether the Media Service resource name is available.
    * @summary Check Name Availability
-   * @param locationName The name of the location
+   * @param locationName
    * @param parameters The request parameters
    * @param [options] The optional parameters
    * @returns Promise<Models.LocationsCheckNameAvailabilityResponse>
    */
   checkNameAvailability(locationName: string, parameters: Models.CheckNameAvailabilityInput, options?: msRest.RequestOptionsBase): Promise<Models.LocationsCheckNameAvailabilityResponse>;
   /**
-   * @param locationName The name of the location
+   * @param locationName
    * @param parameters The request parameters
    * @param callback The callback
    */
   checkNameAvailability(locationName: string, parameters: Models.CheckNameAvailabilityInput, callback: msRest.ServiceCallback<Models.EntityNameAvailabilityCheckOutput>): void;
   /**
-   * @param locationName The name of the location
+   * @param locationName
    * @param parameters The request parameters
    * @param options The optional parameters
    * @param callback The callback

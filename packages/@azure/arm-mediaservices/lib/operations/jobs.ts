@@ -191,53 +191,6 @@ export class Jobs {
   }
 
   /**
-   * Update is only supported for description and priority. Updating Priority will take effect when
-   * the Job state is Queued or Scheduled and depending on the timing the priority update may be
-   * ignored.
-   * @summary Update Job
-   * @param resourceGroupName The name of the resource group within the Azure subscription.
-   * @param accountName The Media Services account name.
-   * @param transformName The Transform name.
-   * @param jobName The Job name.
-   * @param parameters The request parameters
-   * @param [options] The optional parameters
-   * @returns Promise<Models.JobsUpdateResponse>
-   */
-  update(resourceGroupName: string, accountName: string, transformName: string, jobName: string, parameters: Models.Job, options?: msRest.RequestOptionsBase): Promise<Models.JobsUpdateResponse>;
-  /**
-   * @param resourceGroupName The name of the resource group within the Azure subscription.
-   * @param accountName The Media Services account name.
-   * @param transformName The Transform name.
-   * @param jobName The Job name.
-   * @param parameters The request parameters
-   * @param callback The callback
-   */
-  update(resourceGroupName: string, accountName: string, transformName: string, jobName: string, parameters: Models.Job, callback: msRest.ServiceCallback<Models.Job>): void;
-  /**
-   * @param resourceGroupName The name of the resource group within the Azure subscription.
-   * @param accountName The Media Services account name.
-   * @param transformName The Transform name.
-   * @param jobName The Job name.
-   * @param parameters The request parameters
-   * @param options The optional parameters
-   * @param callback The callback
-   */
-  update(resourceGroupName: string, accountName: string, transformName: string, jobName: string, parameters: Models.Job, options: msRest.RequestOptionsBase, callback: msRest.ServiceCallback<Models.Job>): void;
-  update(resourceGroupName: string, accountName: string, transformName: string, jobName: string, parameters: Models.Job, options?: msRest.RequestOptionsBase | msRest.ServiceCallback<Models.Job>, callback?: msRest.ServiceCallback<Models.Job>): Promise<Models.JobsUpdateResponse> {
-    return this.client.sendOperationRequest(
-      {
-        resourceGroupName,
-        accountName,
-        transformName,
-        jobName,
-        parameters,
-        options
-      },
-      updateOperationSpec,
-      callback) as Promise<Models.JobsUpdateResponse>;
-  }
-
-  /**
    * Cancel a Job.
    * @summary Cancel Job
    * @param resourceGroupName The name of the resource group within the Azure subscription.
@@ -322,7 +275,8 @@ const listOperationSpec: msRest.OperationSpec = {
   queryParameters: [
     Parameters.apiVersion,
     Parameters.filter,
-    Parameters.orderby
+    Parameters.top,
+    Parameters.skip
   ],
   headerParameters: [
     Parameters.acceptLanguage
@@ -419,40 +373,6 @@ const deleteMethodOperationSpec: msRest.OperationSpec = {
   responses: {
     200: {},
     204: {},
-    default: {
-      bodyMapper: Mappers.ApiError
-    }
-  },
-  serializer
-};
-
-const updateOperationSpec: msRest.OperationSpec = {
-  httpMethod: "PATCH",
-  path: "subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Media/mediaServices/{accountName}/transforms/{transformName}/jobs/{jobName}",
-  urlParameters: [
-    Parameters.subscriptionId,
-    Parameters.resourceGroupName,
-    Parameters.accountName,
-    Parameters.transformName,
-    Parameters.jobName
-  ],
-  queryParameters: [
-    Parameters.apiVersion
-  ],
-  headerParameters: [
-    Parameters.acceptLanguage
-  ],
-  requestBody: {
-    parameterPath: "parameters",
-    mapper: {
-      ...Mappers.Job,
-      required: true
-    }
-  },
-  responses: {
-    200: {
-      bodyMapper: Mappers.Job
-    },
     default: {
       bodyMapper: Mappers.ApiError
     }

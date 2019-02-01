@@ -84,16 +84,6 @@ export const filter: msRest.OperationQueryParameter = {
     }
   }
 };
-export const filterName: msRest.OperationURLParameter = {
-  parameterPath: "filterName",
-  mapper: {
-    required: true,
-    serializedName: "filterName",
-    type: {
-      name: "String"
-    }
-  }
-};
 export const jobName: msRest.OperationURLParameter = {
   parameterPath: "jobName",
   mapper: {
@@ -174,6 +164,18 @@ export const resourceGroupName: msRest.OperationURLParameter = {
     serializedName: "resourceGroupName",
     type: {
       name: "String"
+    }
+  }
+};
+export const skip: msRest.OperationQueryParameter = {
+  parameterPath: [
+    "options",
+    "skip"
+  ],
+  mapper: {
+    serializedName: "$skip",
+    type: {
+      name: "Number"
     }
   }
 };

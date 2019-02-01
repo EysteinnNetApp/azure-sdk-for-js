@@ -13,10 +13,6 @@ export {
   OperationCollection,
   Operation,
   OperationDisplay,
-  MetricProperties,
-  ServiceSpecification,
-  Metric,
-  MetricDimension,
   ApiError,
   ODataError
 } from "../models/mappers";
