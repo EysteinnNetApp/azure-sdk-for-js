@@ -16,212 +16,6 @@ export { BaseResource, CloudError };
 
 /**
  * @interface
- * An interface representing PresentationTimeRange.
- * The presentation time range, this is asset related and not recommended for
- * Account Filter.
- *
- */
-export interface PresentationTimeRange {
-  /**
-   * @member {number} [startTimestamp] The absolute start time boundary.
-   */
-  startTimestamp?: number;
-  /**
-   * @member {number} [endTimestamp] The absolute end time boundary.
-   */
-  endTimestamp?: number;
-  /**
-   * @member {number} [presentationWindowDuration] The relative to end sliding
-   * window.
-   */
-  presentationWindowDuration?: number;
-  /**
-   * @member {number} [liveBackoffDuration] The relative to end right edge.
-   */
-  liveBackoffDuration?: number;
-  /**
-   * @member {number} [timescale] The time scale of time stamps.
-   */
-  timescale?: number;
-  /**
-   * @member {boolean} [forceEndTimestamp] The indicator of forcing exsiting of
-   * end time stamp.
-   */
-  forceEndTimestamp?: boolean;
-}
-
-/**
- * @interface
- * An interface representing FilterTrackPropertyCondition.
- * The class to specify one track property condition.
- *
- */
-export interface FilterTrackPropertyCondition {
-  /**
-   * @member {FilterTrackPropertyType} property The track property type.
-   * Possible values include: 'Unknown', 'Type', 'Name', 'Language', 'FourCC',
-   * 'Bitrate'
-   */
-  property: FilterTrackPropertyType;
-  /**
-   * @member {string} value The track proprty value.
-   */
-  value: string;
-  /**
-   * @member {FilterTrackPropertyCompareOperation} operation The track property
-   * condition operation. Possible values include: 'Equal', 'NotEqual'
-   */
-  operation: FilterTrackPropertyCompareOperation;
-}
-
-/**
- * @interface
- * An interface representing FirstQuality.
- * Filter First Quality
- *
- */
-export interface FirstQuality {
-  /**
-   * @member {number} bitrate The first quality bitrate.
-   */
-  bitrate: number;
-}
-
-/**
- * @interface
- * An interface representing FilterTrackSelection.
- * Representing a list of FilterTrackPropertyConditions to select a track.  The
- * filters are combined using a logical AND operation.
- *
- */
-export interface FilterTrackSelection {
-  /**
-   * @member {FilterTrackPropertyCondition[]} trackSelections The track
-   * selections.
-   */
-  trackSelections: FilterTrackPropertyCondition[];
-}
-
-/**
- * @interface
- * An interface representing Resource.
- * The core properties of ARM resources.
- *
- * @extends BaseResource
- */
-export interface Resource extends BaseResource {
-  /**
-   * @member {string} [id] Fully qualified resource ID for the resource.
-   * **NOTE: This property will not be serialized. It can only be populated by
-   * the server.**
-   */
-  readonly id?: string;
-  /**
-   * @member {string} [name] The name of the resource.
-   * **NOTE: This property will not be serialized. It can only be populated by
-   * the server.**
-   */
-  readonly name?: string;
-  /**
-   * @member {string} [type] The type of the resource.
-   * **NOTE: This property will not be serialized. It can only be populated by
-   * the server.**
-   */
-  readonly type?: string;
-}
-
-/**
- * @interface
- * An interface representing ProxyResource.
- * The resource model definition for a ARM proxy resource.
- *
- * @extends Resource
- */
-export interface ProxyResource extends Resource {
-}
-
-/**
- * @interface
- * An interface representing AccountFilter.
- * An Account Filter.
- *
- * @extends ProxyResource
- */
-export interface AccountFilter extends ProxyResource {
-  /**
-   * @member {PresentationTimeRange} [presentationTimeRange] The presentation
-   * time range.
-   */
-  presentationTimeRange?: PresentationTimeRange;
-  /**
-   * @member {FirstQuality} [firstQuality] The first quality.
-   */
-  firstQuality?: FirstQuality;
-  /**
-   * @member {FilterTrackSelection[]} [tracks] The tracks selection conditions.
-   */
-  tracks?: FilterTrackSelection[];
-}
-
-/**
- * @interface
- * An interface representing ODataError.
- * Information about an error.
- *
- */
-export interface ODataError {
-  /**
-   * @member {string} [code] A language-independent error name.
-   */
-  code?: string;
-  /**
-   * @member {string} [message] The error message.
-   */
-  message?: string;
-  /**
-   * @member {string} [target] The target of the error (for example, the name
-   * of the property in error).
-   */
-  target?: string;
-  /**
-   * @member {ODataError[]} [details] The error details.
-   */
-  details?: ODataError[];
-}
-
-/**
- * @interface
- * An interface representing ApiError.
- * The API error.
- *
- */
-export interface ApiError {
-  /**
-   * @member {ODataError} [error] ApiError. The error properties.
-   */
-  error?: ODataError;
-}
-
-/**
- * @interface
- * An interface representing TrackedResource.
- * The resource model definition for a ARM tracked resource.
- *
- * @extends Resource
- */
-export interface TrackedResource extends Resource {
-  /**
-   * @member {{ [propertyName: string]: string }} [tags] Resource tags.
-   */
-  tags?: { [propertyName: string]: string };
-  /**
-   * @member {string} [location] The Azure Region of the resource.
-   */
-  location?: string;
-}
-
-/**
- * @interface
  * An interface representing Provider.
  * A resource provider.
  *
@@ -260,112 +54,6 @@ export interface OperationDisplay {
 
 /**
  * @interface
- * An interface representing MetricDimension.
- * A metric dimension.
- *
- */
-export interface MetricDimension {
-  /**
-   * @member {string} [name] The metric dimension name.
-   * **NOTE: This property will not be serialized. It can only be populated by
-   * the server.**
-   */
-  readonly name?: string;
-  /**
-   * @member {string} [displayName] The display name for the dimension.
-   * **NOTE: This property will not be serialized. It can only be populated by
-   * the server.**
-   */
-  readonly displayName?: string;
-  /**
-   * @member {boolean} [toBeExportedForShoebox] Whether to export metric to
-   * shoebox.
-   * **NOTE: This property will not be serialized. It can only be populated by
-   * the server.**
-   */
-  readonly toBeExportedForShoebox?: boolean;
-}
-
-/**
- * @interface
- * An interface representing Metric.
- * A metric emitted by service.
- *
- */
-export interface Metric {
-  /**
-   * @member {string} [name] The metric name.
-   * **NOTE: This property will not be serialized. It can only be populated by
-   * the server.**
-   */
-  readonly name?: string;
-  /**
-   * @member {string} [displayName] The metric display name.
-   * **NOTE: This property will not be serialized. It can only be populated by
-   * the server.**
-   */
-  readonly displayName?: string;
-  /**
-   * @member {string} [displayDescription] The metric display description.
-   * **NOTE: This property will not be serialized. It can only be populated by
-   * the server.**
-   */
-  readonly displayDescription?: string;
-  /**
-   * @member {MetricUnit} [unit] The metric unit. Possible values include:
-   * 'Bytes', 'Count', 'Milliseconds'
-   * **NOTE: This property will not be serialized. It can only be populated by
-   * the server.**
-   */
-  readonly unit?: MetricUnit;
-  /**
-   * @member {MetricAggregationType} [aggregationType] The metric aggregation
-   * type. Possible values include: 'Average', 'Count', 'Total'
-   * **NOTE: This property will not be serialized. It can only be populated by
-   * the server.**
-   */
-  readonly aggregationType?: MetricAggregationType;
-  /**
-   * @member {MetricDimension[]} [dimensions] The metric dimensions.
-   * **NOTE: This property will not be serialized. It can only be populated by
-   * the server.**
-   */
-  readonly dimensions?: MetricDimension[];
-}
-
-/**
- * @interface
- * An interface representing ServiceSpecification.
- * The service metric specifications.
- *
- */
-export interface ServiceSpecification {
-  /**
-   * @member {Metric[]} [metricSpecifications] List of metric specifications.
-   * **NOTE: This property will not be serialized. It can only be populated by
-   * the server.**
-   */
-  readonly metricSpecifications?: Metric[];
-}
-
-/**
- * @interface
- * An interface representing MetricProperties.
- * Metric properties.
- *
- */
-export interface MetricProperties {
-  /**
-   * @member {ServiceSpecification} [serviceSpecification] The service
-   * specifications.
-   * **NOTE: This property will not be serialized. It can only be populated by
-   * the server.**
-   */
-  readonly serviceSpecification?: ServiceSpecification;
-}
-
-/**
- * @interface
  * An interface representing Operation.
  * An operation.
  *
@@ -379,14 +67,6 @@ export interface Operation {
    * @member {OperationDisplay} [display] The operation display name.
    */
   display?: OperationDisplay;
-  /**
-   * @member {string} [origin] Origin of the operation.
-   */
-  origin?: string;
-  /**
-   * @member {MetricProperties} [properties] Operation properties format.
-   */
-  properties?: MetricProperties;
 }
 
 /**
@@ -460,6 +140,52 @@ export interface SyncStorageKeysInput {
 
 /**
  * @interface
+ * An interface representing Resource.
+ * The core properties of ARM resources.
+ *
+ * @extends BaseResource
+ */
+export interface Resource extends BaseResource {
+  /**
+   * @member {string} [id] Fully qualified resource ID for the resource.
+   * **NOTE: This property will not be serialized. It can only be populated by
+   * the server.**
+   */
+  readonly id?: string;
+  /**
+   * @member {string} [name] The name of the resource.
+   * **NOTE: This property will not be serialized. It can only be populated by
+   * the server.**
+   */
+  readonly name?: string;
+  /**
+   * @member {string} [type] The type of the resource.
+   * **NOTE: This property will not be serialized. It can only be populated by
+   * the server.**
+   */
+  readonly type?: string;
+}
+
+/**
+ * @interface
+ * An interface representing TrackedResource.
+ * The resource model definition for a ARM tracked resource.
+ *
+ * @extends Resource
+ */
+export interface TrackedResource extends Resource {
+  /**
+   * @member {{ [propertyName: string]: string }} [tags] Resource tags.
+   */
+  tags?: { [propertyName: string]: string };
+  /**
+   * @member {string} [location] The Azure Region of the resource.
+   */
+  location?: string;
+}
+
+/**
+ * @interface
  * An interface representing MediaService.
  * A Media Services account.
  *
@@ -502,6 +228,45 @@ export interface SubscriptionMediaService extends TrackedResource {
 
 /**
  * @interface
+ * An interface representing ODataError.
+ * Information about an error.
+ *
+ */
+export interface ODataError {
+  /**
+   * @member {string} [code] A language-independent error name.
+   */
+  code?: string;
+  /**
+   * @member {string} [message] The error message.
+   */
+  message?: string;
+  /**
+   * @member {string} [target] The target of the error (for example, the name
+   * of the property in error).
+   */
+  target?: string;
+  /**
+   * @member {ODataError[]} [details] The error details.
+   */
+  details?: ODataError[];
+}
+
+/**
+ * @interface
+ * An interface representing ApiError.
+ * The API error.
+ *
+ */
+export interface ApiError {
+  /**
+   * @member {ODataError} [error] The error properties.
+   */
+  error?: ODataError;
+}
+
+/**
+ * @interface
  * An interface representing CheckNameAvailabilityInput.
  * The input to the check name availability request.
  *
@@ -520,6 +285,16 @@ export interface CheckNameAvailabilityInput {
 
 /**
  * @interface
+ * An interface representing ProxyResource.
+ * The resource model definition for a ARM proxy resource.
+ *
+ * @extends Resource
+ */
+export interface ProxyResource extends Resource {
+}
+
+/**
+ * @interface
  * An interface representing AssetContainerSas.
  * The Asset Storage container SAS URLs.
  *
@@ -534,118 +309,15 @@ export interface AssetContainerSas {
 
 /**
  * @interface
- * An interface representing AssetFileEncryptionMetadata.
- * The Asset File Storage encryption metadata.
+ * An interface representing AssetStorageEncryptionKey.
+ * The Asset Storage encryption key.
  *
  */
-export interface AssetFileEncryptionMetadata {
+export interface AssetStorageEncryptionKey {
   /**
-   * @member {string} [initializationVector] The Asset File initialization
-   * vector.
+   * @member {string} [storageEncryptionKey] The Asset storage encryption key.
    */
-  initializationVector?: string;
-  /**
-   * @member {string} [assetFileName] The Asset File name.
-   */
-  assetFileName?: string;
-  /**
-   * @member {string} assetFileId The Asset File Id.
-   */
-  assetFileId: string;
-}
-
-/**
- * @interface
- * An interface representing StorageEncryptedAssetDecryptionData.
- * Data needed to decrypt asset files encrypted with legacy storage encryption.
- *
- */
-export interface StorageEncryptedAssetDecryptionData {
-  /**
-   * @member {Uint8Array} [key] The Asset File storage encryption key.
-   */
-  key?: Uint8Array;
-  /**
-   * @member {AssetFileEncryptionMetadata[]} [assetFileEncryptionMetadata]
-   * Asset File encryption metadata.
-   */
-  assetFileEncryptionMetadata?: AssetFileEncryptionMetadata[];
-}
-
-/**
- * @interface
- * An interface representing AssetStreamingLocator.
- * Properties of the Streaming Locator.
- *
- */
-export interface AssetStreamingLocator {
-  /**
-   * @member {string} [name] Streaming Locator name.
-   * **NOTE: This property will not be serialized. It can only be populated by
-   * the server.**
-   */
-  readonly name?: string;
-  /**
-   * @member {string} [assetName] Asset Name.
-   * **NOTE: This property will not be serialized. It can only be populated by
-   * the server.**
-   */
-  readonly assetName?: string;
-  /**
-   * @member {Date} [created] The creation time of the Streaming Locator.
-   * **NOTE: This property will not be serialized. It can only be populated by
-   * the server.**
-   */
-  readonly created?: Date;
-  /**
-   * @member {Date} [startTime] The start time of the Streaming Locator.
-   * **NOTE: This property will not be serialized. It can only be populated by
-   * the server.**
-   */
-  readonly startTime?: Date;
-  /**
-   * @member {Date} [endTime] The end time of the Streaming Locator.
-   * **NOTE: This property will not be serialized. It can only be populated by
-   * the server.**
-   */
-  readonly endTime?: Date;
-  /**
-   * @member {string} [streamingLocatorId] StreamingLocatorId of the Streaming
-   * Locator.
-   * **NOTE: This property will not be serialized. It can only be populated by
-   * the server.**
-   */
-  readonly streamingLocatorId?: string;
-  /**
-   * @member {string} [streamingPolicyName] Name of the Streaming Policy used
-   * by this Streaming Locator.
-   * **NOTE: This property will not be serialized. It can only be populated by
-   * the server.**
-   */
-  readonly streamingPolicyName?: string;
-  /**
-   * @member {string} [defaultContentKeyPolicyName] Name of the default
-   * ContentKeyPolicy used by this Streaming Locator.
-   * **NOTE: This property will not be serialized. It can only be populated by
-   * the server.**
-   */
-  readonly defaultContentKeyPolicyName?: string;
-}
-
-/**
- * @interface
- * An interface representing ListStreamingLocatorsResponse.
- * The Streaming Locators associated with this Asset.
- *
- */
-export interface ListStreamingLocatorsResponse {
-  /**
-   * @member {AssetStreamingLocator[]} [streamingLocators] The list of
-   * Streaming Locators.
-   * **NOTE: This property will not be serialized. It can only be populated by
-   * the server.**
-   */
-  readonly streamingLocators?: AssetStreamingLocator[];
+  storageEncryptionKey?: string;
 }
 
 /**
@@ -702,31 +374,8 @@ export interface Asset extends ProxyResource {
 
 /**
  * @interface
- * An interface representing AssetFilter.
- * An Asset Filter.
- *
- * @extends ProxyResource
- */
-export interface AssetFilter extends ProxyResource {
-  /**
-   * @member {PresentationTimeRange} [presentationTimeRange] The presentation
-   * time range.
-   */
-  presentationTimeRange?: PresentationTimeRange;
-  /**
-   * @member {FirstQuality} [firstQuality] The first quality.
-   */
-  firstQuality?: FirstQuality;
-  /**
-   * @member {FilterTrackSelection[]} [tracks] The tracks selection conditions.
-   */
-  tracks?: FilterTrackSelection[];
-}
-
-/**
- * @interface
  * An interface representing ListContainerSasInput.
- * The parameters to the list SAS request.
+ * The parameters to the list SAS requet.
  *
  */
 export interface ListContainerSasInput {
@@ -1233,8 +882,7 @@ export interface ContentKeyPolicyFairPlayConfiguration {
    */
   odatatype: "#Microsoft.Media.ContentKeyPolicyFairPlayConfiguration";
   /**
-   * @member {Uint8Array} ask The key that must be used as FairPlay Application
-   * Secret key.
+   * @member {Uint8Array} ask The key that must be used as FairPlay ASk.
    */
   ask: Uint8Array;
   /**
@@ -1500,13 +1148,7 @@ export interface AudioAnalyzerPreset {
    * @member {string} [audioLanguage] The language for the audio payload in the
    * input using the BCP-47 format of 'language tag-region' (e.g: 'en-US'). The
    * list of supported languages are, 'en-US', 'en-GB', 'es-ES', 'es-MX',
-   * 'fr-FR', 'it-IT', 'ja-JP', 'pt-BR', 'zh-CN', 'de-DE', 'ar-EG', 'ru-RU',
-   * 'hi-IN'. If not specified, automatic language detection would be employed.
-   * This feature currently supports English, Chinese, French, German, Italian,
-   * Japanese, Spanish, Russian, and Portuguese. The automatic detection works
-   * best with audio recordings with clearly discernable speech. If automatic
-   * detection fails to find the language, transcription would fallback to
-   * English.
+   * 'fr-FR', 'it-IT', 'ja-JP', 'pt-BR', 'zh-CN'.
    */
   audioLanguage?: string;
 }
@@ -2514,8 +2156,7 @@ export interface BuiltInStandardEncoderPreset {
   odatatype: "#Microsoft.Media.BuiltInStandardEncoderPreset";
   /**
    * @member {EncoderNamedPreset} presetName The built-in preset to be used for
-   * encoding videos. Possible values include: 'H264SingleBitrateSD',
-   * 'H264SingleBitrate720p', 'H264SingleBitrate1080p', 'AdaptiveStreaming',
+   * encoding videos. Possible values include: 'AdaptiveStreaming',
    * 'AACGoodQualityAudio', 'H264MultipleBitrate1080p',
    * 'H264MultipleBitrate720p', 'H264MultipleBitrateSD'
    */
@@ -2567,23 +2208,14 @@ export interface VideoAnalyzerPreset {
    * @member {string} [audioLanguage] The language for the audio payload in the
    * input using the BCP-47 format of 'language tag-region' (e.g: 'en-US'). The
    * list of supported languages are, 'en-US', 'en-GB', 'es-ES', 'es-MX',
-   * 'fr-FR', 'it-IT', 'ja-JP', 'pt-BR', 'zh-CN', 'de-DE', 'ar-EG', 'ru-RU',
-   * 'hi-IN'. If not specified, automatic language detection would be employed.
-   * This feature currently supports English, Chinese, French, German, Italian,
-   * Japanese, Spanish, Russian, and Portuguese. The automatic detection works
-   * best with audio recordings with clearly discernable speech. If automatic
-   * detection fails to find the language, transcription would fallback to
-   * English.
+   * 'fr-FR', 'it-IT', 'ja-JP', 'pt-BR', 'zh-CN'.
    */
   audioLanguage?: string;
   /**
-   * @member {InsightsType} [insightsToExtract] The type of insights to be
-   * extracted. If not set then based on the content the type will selected.
-   * If the content is audio only then only audio insights are extracted and if
-   * it is video only. Possible values include: 'AudioInsightsOnly',
-   * 'VideoInsightsOnly', 'AllInsights'
+   * @member {boolean} [audioInsightsOnly] Whether to only extract audio
+   * insights when processing a video file.
    */
-  insightsToExtract?: InsightsType;
+  audioInsightsOnly?: boolean;
 }
 
 /**
@@ -2701,9 +2333,8 @@ export interface TransformOutput {
    * @member {OnErrorType} [onError] A Transform can define more than one
    * outputs. This property defines what the service should do when one output
    * fails - either continue to produce other outputs, or, stop the other
-   * outputs. The overall Job state will not reflect failures of outputs that
-   * are specified with 'ContinueJob'. The default is 'StopProcessingJob'.
-   * Possible values include: 'StopProcessingJob', 'ContinueJob'
+   * outputs. The default is stop. Possible values include:
+   * 'StopProcessingJob', 'ContinueJob'
    */
   onError?: OnErrorType;
   /**
@@ -2774,6 +2405,15 @@ export interface JobInput {
    * @member {string} odatatype Polymorphic Discriminator
    */
   odatatype: "JobInput";
+  /**
+   * @member {string} [label] A label that is assigned to a JobInput, that is
+   * used to satisfy a reference used in the Transform. For example, a
+   * Transform can be authored so as to take an image file with the label 'xyz'
+   * and apply it as an overlay onto the input video before it is encoded. When
+   * submitting a Job, exactly one of the JobInputs should be the image file,
+   * and it should have the label 'xyz'.
+   */
+  label?: string;
 }
 
 /**
@@ -2793,18 +2433,18 @@ export interface JobInputClip {
    */
   odatatype: "#Microsoft.Media.JobInputClip";
   /**
-   * @member {string[]} [files] List of files. Required for JobInputHttp.
-   */
-  files?: string[];
-  /**
-   * @member {string} [label] A label that is assigned to a JobInputClip, that
-   * is used to satisfy a reference used in the Transform. For example, a
+   * @member {string} [label] A label that is assigned to a JobInput, that is
+   * used to satisfy a reference used in the Transform. For example, a
    * Transform can be authored so as to take an image file with the label 'xyz'
    * and apply it as an overlay onto the input video before it is encoded. When
    * submitting a Job, exactly one of the JobInputs should be the image file,
    * and it should have the label 'xyz'.
    */
   label?: string;
+  /**
+   * @member {string[]} [files] List of files. Required for JobInputHttp.
+   */
+  files?: string[];
 }
 
 /**
@@ -2818,6 +2458,15 @@ export interface JobInputs {
    * @member {string} odatatype Polymorphic Discriminator
    */
   odatatype: "#Microsoft.Media.JobInputs";
+  /**
+   * @member {string} [label] A label that is assigned to a JobInput, that is
+   * used to satisfy a reference used in the Transform. For example, a
+   * Transform can be authored so as to take an image file with the label 'xyz'
+   * and apply it as an overlay onto the input video before it is encoded. When
+   * submitting a Job, exactly one of the JobInputs should be the image file,
+   * and it should have the label 'xyz'.
+   */
+  label?: string;
   /**
    * @member {JobInputUnion[]} [inputs] List of inputs to a Job.
    */
@@ -2836,18 +2485,18 @@ export interface JobInputAsset {
    */
   odatatype: "#Microsoft.Media.JobInputAsset";
   /**
-   * @member {string[]} [files] List of files. Required for JobInputHttp.
-   */
-  files?: string[];
-  /**
-   * @member {string} [label] A label that is assigned to a JobInputClip, that
-   * is used to satisfy a reference used in the Transform. For example, a
+   * @member {string} [label] A label that is assigned to a JobInput, that is
+   * used to satisfy a reference used in the Transform. For example, a
    * Transform can be authored so as to take an image file with the label 'xyz'
    * and apply it as an overlay onto the input video before it is encoded. When
    * submitting a Job, exactly one of the JobInputs should be the image file,
    * and it should have the label 'xyz'.
    */
   label?: string;
+  /**
+   * @member {string[]} [files] List of files. Required for JobInputHttp.
+   */
+  files?: string[];
   /**
    * @member {string} assetName The name of the input Asset.
    */
@@ -2866,18 +2515,18 @@ export interface JobInputHttp {
    */
   odatatype: "#Microsoft.Media.JobInputHttp";
   /**
-   * @member {string[]} [files] List of files. Required for JobInputHttp.
-   */
-  files?: string[];
-  /**
-   * @member {string} [label] A label that is assigned to a JobInputClip, that
-   * is used to satisfy a reference used in the Transform. For example, a
+   * @member {string} [label] A label that is assigned to a JobInput, that is
+   * used to satisfy a reference used in the Transform. For example, a
    * Transform can be authored so as to take an image file with the label 'xyz'
    * and apply it as an overlay onto the input video before it is encoded. When
    * submitting a Job, exactly one of the JobInputs should be the image file,
    * and it should have the label 'xyz'.
    */
   label?: string;
+  /**
+   * @member {string[]} [files] List of files. Required for JobInputHttp.
+   */
+  files?: string[];
   /**
    * @member {string} [baseUri] Base URI for HTTPS job input. It will be
    * concatenated with provided file names.   If no base uri is given, then the
@@ -2989,28 +2638,13 @@ export interface JobOutput {
   readonly state?: JobState;
   /**
    * @member {number} [progress] If the JobOutput is in a Processing state,
-   * this contains the Job completion percentage. The value is an estimate and
-   * not intended to be used to predict Job completion times. To determine if
+   * this contains the job completion percentage.  The value is an estimate and
+   * not intended to be used to predict job completion times. To determine if
    * the JobOutput is complete, use the State property.
    * **NOTE: This property will not be serialized. It can only be populated by
    * the server.**
    */
   readonly progress?: number;
-  /**
-   * @member {string} [label] A label that is assigned to a JobOutput in order
-   * to help uniquely identify it. This is useful when your Transform has more
-   * than one TransformOutput, whereby your Job has more than one JobOutput. In
-   * such cases, when you submit the Job, you will add two or more JobOutputs,
-   * in the same order as TransformOutputs in the Transform. Subsequently, when
-   * you retrieve the Job, either through events or on a GET request, you can
-   * use the label to easily identify the JobOutput. If a label is not
-   * provided, a default value of '{presetName}_{outputIndex}' will be used,
-   * where the preset name is the name of the preset in the corresponding
-   * TransformOutput and the output index is the relative index of the this
-   * JobOutput within the Job. Note that this index is the same as the relative
-   * index of the corresponding TransformOutput within its Transform.
-   */
-  label?: string;
 }
 
 /**
@@ -3041,28 +2675,13 @@ export interface JobOutputAsset {
   readonly state?: JobState;
   /**
    * @member {number} [progress] If the JobOutput is in a Processing state,
-   * this contains the Job completion percentage. The value is an estimate and
-   * not intended to be used to predict Job completion times. To determine if
+   * this contains the job completion percentage.  The value is an estimate and
+   * not intended to be used to predict job completion times. To determine if
    * the JobOutput is complete, use the State property.
    * **NOTE: This property will not be serialized. It can only be populated by
    * the server.**
    */
   readonly progress?: number;
-  /**
-   * @member {string} [label] A label that is assigned to a JobOutput in order
-   * to help uniquely identify it. This is useful when your Transform has more
-   * than one TransformOutput, whereby your Job has more than one JobOutput. In
-   * such cases, when you submit the Job, you will add two or more JobOutputs,
-   * in the same order as TransformOutputs in the Transform. Subsequently, when
-   * you retrieve the Job, either through events or on a GET request, you can
-   * use the label to easily identify the JobOutput. If a label is not
-   * provided, a default value of '{presetName}_{outputIndex}' will be used,
-   * where the preset name is the name of the preset in the corresponding
-   * TransformOutput and the output index is the relative index of the this
-   * JobOutput within the Job. Note that this index is the same as the relative
-   * index of the corresponding TransformOutput within its Transform.
-   */
-  label?: string;
   /**
    * @member {string} assetName The name of the output Asset.
    */
@@ -3122,8 +2741,7 @@ export interface Job extends ProxyResource {
   priority?: Priority;
   /**
    * @member {{ [propertyName: string]: string }} [correlationData] Customer
-   * provided correlation data that will be returned in Job and JobOutput state
-   * events.
+   * provided correlation data that will be returned in Job completed events.
    */
   correlationData?: { [propertyName: string]: string };
 }
@@ -3515,10 +3133,9 @@ export interface StreamingLocatorContentKey {
    */
   readonly type?: StreamingLocatorContentKeyType;
   /**
-   * @member {string} [labelReferenceInStreamingPolicy] Label of Content Key as
-   * specified in the Streaming Policy
+   * @member {string} [label] Label of Content Key
    */
-  labelReferenceInStreamingPolicy?: string;
+  label?: string;
   /**
    * @member {string} [value] Value of Content Key
    */
@@ -3531,10 +3148,8 @@ export interface StreamingLocatorContentKey {
   readonly policyName?: string;
   /**
    * @member {TrackSelection[]} [tracks] Tracks which use this Content Key
-   * **NOTE: This property will not be serialized. It can only be populated by
-   * the server.**
    */
-  readonly tracks?: TrackSelection[];
+  tracks?: TrackSelection[];
 }
 
 /**
@@ -3609,47 +3224,51 @@ export interface StreamingLocator extends ProxyResource {
    */
   assetName: string;
   /**
-   * @member {Date} [created] The creation time of the Streaming Locator.
+   * @member {Date} [created] Creation time of Streaming Locator
    * **NOTE: This property will not be serialized. It can only be populated by
    * the server.**
    */
   readonly created?: Date;
   /**
-   * @member {Date} [startTime] The start time of the Streaming Locator.
+   * @member {Date} [startTime] StartTime of Streaming Locator
    */
   startTime?: Date;
   /**
-   * @member {Date} [endTime] The end time of the Streaming Locator.
+   * @member {Date} [endTime] EndTime of Streaming Locator
    */
   endTime?: Date;
   /**
-   * @member {string} [streamingLocatorId] The StreamingLocatorId of the
-   * Streaming Locator.
+   * @member {string} [streamingLocatorId] StreamingLocatorId of Streaming
+   * Locator
    */
   streamingLocatorId?: string;
   /**
-   * @member {string} streamingPolicyName Name of the Streaming Policy used by
-   * this Streaming Locator. Either specify the name of Streaming Policy you
-   * created or use one of the predefined Streaming Policies. The predefined
-   * Streaming Policies available are: 'Predefined_DownloadOnly',
+   * @member {string} streamingPolicyName Streaming policy name used by this
+   * streaming locator. Either specify the name of streaming policy you created
+   * or use one of the predefined streaming polices. The predefined streaming
+   * policies available are: 'Predefined_DownloadOnly',
    * 'Predefined_ClearStreamingOnly', 'Predefined_DownloadAndClearStreaming',
-   * 'Predefined_ClearKey', 'Predefined_MultiDrmCencStreaming' and
-   * 'Predefined_MultiDrmStreaming'
+   * 'Predefined_ClearKey', 'Predefined_SecureStreaming' and
+   * 'Predefined_SecureStreamingWithFairPlay'
    */
   streamingPolicyName: string;
   /**
-   * @member {string} [defaultContentKeyPolicyName] Name of the default
-   * ContentKeyPolicy used by this Streaming Locator.
+   * @member {string} [defaultContentKeyPolicyName] Default ContentKeyPolicy
+   * used by this Streaming Locator
    */
   defaultContentKeyPolicyName?: string;
   /**
-   * @member {StreamingLocatorContentKey[]} [contentKeys] The ContentKeys used
-   * by this Streaming Locator.
+   * @member {StreamingLocatorContentKey[]} [contentKeys] ContentKeys used by
+   * this Streaming Locator
    */
   contentKeys?: StreamingLocatorContentKey[];
   /**
-   * @member {string} [alternativeMediaId] Alternative Media ID of this
-   * Streaming Locator
+   * @member {string} [alternativeMediaId] An Alternative Media Identifier
+   * associated with the StreamingLocator.  This identifier can be used to
+   * distinguish different StreamingLocators for the same Asset for
+   * authorization purposes in the CustomLicenseAcquisitionUrlTemplate or the
+   * CustomKeyAcquisitionUrlTemplate of the StreamingPolicy specified in the
+   * StreamingPolicyName field.
    */
   alternativeMediaId?: string;
 }
@@ -3691,8 +3310,7 @@ export interface LiveOutput extends ProxyResource {
    */
   archiveWindowLength: string;
   /**
-   * @member {string} [manifestName] The manifest file name.  If not provided,
-   * the service will generate one automatically.
+   * @member {string} [manifestName] The manifest file name.
    */
   manifestName?: string;
   /**
@@ -3752,6 +3370,34 @@ export interface LiveEventEndpoint {
 
 /**
  * @interface
+ * An interface representing LiveEventInput.
+ * The Live Event input.
+ *
+ */
+export interface LiveEventInput {
+  /**
+   * @member {LiveEventInputProtocol} streamingProtocol The streaming protocol
+   * for the Live Event. Possible values include: 'FragmentedMP4', 'RTMP'
+   */
+  streamingProtocol: LiveEventInputProtocol;
+  /**
+   * @member {string} [keyFrameIntervalDuration] ISO 8601 timespan duration of
+   * the key frame interval duration.
+   */
+  keyFrameIntervalDuration?: string;
+  /**
+   * @member {string} [accessToken] The access token.
+   */
+  accessToken?: string;
+  /**
+   * @member {LiveEventEndpoint[]} [endpoints] The input endpoints for the Live
+   * Event.
+   */
+  endpoints?: LiveEventEndpoint[];
+}
+
+/**
+ * @interface
  * An interface representing IPRange.
  * The IP address range in the CIDR scheme.
  *
@@ -3787,55 +3433,6 @@ export interface IPAccessControl {
 
 /**
  * @interface
- * An interface representing LiveEventInputAccessControl.
- * The IP access control for Live Event Input.
- *
- */
-export interface LiveEventInputAccessControl {
-  /**
-   * @member {IPAccessControl} [ip] The IP access control properties.
-   */
-  ip?: IPAccessControl;
-}
-
-/**
- * @interface
- * An interface representing LiveEventInput.
- * The Live Event input.
- *
- */
-export interface LiveEventInput {
-  /**
-   * @member {LiveEventInputProtocol} streamingProtocol The streaming protocol
-   * for the Live Event.  This is specified at creation time and cannot be
-   * updated. Possible values include: 'FragmentedMP4', 'RTMP'
-   */
-  streamingProtocol: LiveEventInputProtocol;
-  /**
-   * @member {LiveEventInputAccessControl} [accessControl] The access control
-   * for LiveEvent Input.
-   */
-  accessControl?: LiveEventInputAccessControl;
-  /**
-   * @member {string} [keyFrameIntervalDuration] ISO 8601 timespan duration of
-   * the key frame interval duration.
-   */
-  keyFrameIntervalDuration?: string;
-  /**
-   * @member {string} [accessToken] A unique identifier for a stream.  This can
-   * be specified at creation time but cannot be updated.  If omitted, the
-   * service will generate a unique value.
-   */
-  accessToken?: string;
-  /**
-   * @member {LiveEventEndpoint[]} [endpoints] The input endpoints for the Live
-   * Event.
-   */
-  endpoints?: LiveEventEndpoint[];
-}
-
-/**
- * @interface
  * An interface representing LiveEventPreviewAccessControl.
  * The IP access control for Live Event preview.
  *
@@ -3864,24 +3461,19 @@ export interface LiveEventPreview {
    */
   accessControl?: LiveEventPreviewAccessControl;
   /**
-   * @member {string} [previewLocator] The identifier of the preview locator in
-   * Guid format.  Specifying this at creation time allows the caller to know
-   * the preview locator url before the event is created.  If omitted, the
-   * service will generate a random identifier.  This value cannot be updated
-   * once the live event is created.
+   * @member {string} [previewLocator] The preview locator Guid.
    */
   previewLocator?: string;
   /**
    * @member {string} [streamingPolicyName] The name of streaming policy used
-   * for the LiveEvent preview.  This value is specified at creation time and
-   * cannot be updated.
+   * for LiveEvent preview
    */
   streamingPolicyName?: string;
   /**
    * @member {string} [alternativeMediaId] An Alternative Media Identifier
-   * associated with the StreamingLocator created for the preview.  This value
-   * is specified at creation time and cannot be updated.  The identifier can
-   * be used in the CustomLicenseAcquisitionUrlTemplate or the
+   * associated with the preview url.  This identifier can be used to
+   * distinguish the preview of different live events for authorization
+   * purposes in the CustomLicenseAcquisitionUrlTemplate or the
    * CustomKeyAcquisitionUrlTemplate of the StreamingPolicy specified in the
    * StreamingPolicyName field.
    */
@@ -3897,13 +3489,11 @@ export interface LiveEventPreview {
 export interface LiveEventEncoding {
   /**
    * @member {LiveEventEncodingType} [encodingType] The encoding type for Live
-   * Event.  This value is specified at creation time and cannot be updated.
-   * Possible values include: 'None', 'Basic', 'Standard'
+   * Event. Possible values include: 'None', 'Basic'
    */
   encodingType?: LiveEventEncodingType;
   /**
-   * @member {string} [presetName] The encoding preset name.  This value is
-   * specified at creation time and cannot be updated.
+   * @member {string} [presetName] The encoding preset name.
    */
   presetName?: string;
 }
@@ -3986,15 +3576,11 @@ export interface LiveEvent extends TrackedResource {
    */
   crossSiteAccessPolicies?: CrossSiteAccessPolicies;
   /**
-   * @member {boolean} [vanityUrl] Specifies whether to use a vanity url with
-   * the Live Event.  This value is specified at creation time and cannot be
-   * updated.
+   * @member {boolean} [vanityUrl] The Live Event vanity URL flag.
    */
   vanityUrl?: boolean;
   /**
-   * @member {StreamOptionsFlag[]} [streamOptions] The options to use for the
-   * LiveEvent.  This value is specified at creation time and cannot be
-   * updated.
+   * @member {StreamOptionsFlag[]} [streamOptions] The stream options.
    */
   streamOptions?: StreamOptionsFlag[];
   /**
@@ -4028,7 +3614,7 @@ export interface AkamaiSignatureHeaderAuthenticationKey {
    */
   base64Key?: string;
   /**
-   * @member {Date} [expiration] The expiration time of the authentication key.
+   * @member {Date} [expiration] The exact time the authentication key.
    */
   expiration?: Date;
 }
@@ -4073,7 +3659,7 @@ export interface StreamingEndpointAccessControl {
  */
 export interface StreamingEntityScaleUnit {
   /**
-   * @member {number} [scaleUnit] The scale unit number of the
+   * @member {number} [scaleUnit] ScaleUnit. The scale unit number of the
    * StreamingEndpoint.
    */
   scaleUnit?: number;
@@ -4092,14 +3678,11 @@ export interface StreamingEndpoint extends TrackedResource {
    */
   description?: string;
   /**
-   * @member {number} scaleUnits The number of scale units.  Use the Scale
-   * operation to adjust this value.
+   * @member {number} [scaleUnits] The number of scale units.
    */
-  scaleUnits: number;
+  scaleUnits?: number;
   /**
-   * @member {string} [availabilitySetName] The name of the AvailabilitySet
-   * used with this StreamingEndpoint for high availability streaming.  This
-   * value can only be set at creation time.
+   * @member {string} [availabilitySetName] AvailabilitySet name
    */
   availabilitySetName?: string;
   /**
@@ -4238,10 +3821,17 @@ export interface TransformsListOptionalParams extends msRest.RequestOptionsBase 
    */
   filter?: string;
   /**
-   * @member {string} [orderby] Specifies the the key by which the result
-   * collection should be ordered.
+   * @member {number} [top] Specifies a non-negative integer n that limits the
+   * number of items returned from a collection. The service returns the number
+   * of available items up to but not greater than the specified value n.
    */
-  orderby?: string;
+  top?: number;
+  /**
+   * @member {number} [skip] Specifies a non-negative integer n that excludes
+   * the first n items of the queried collection from the result. The service
+   * returns items starting at position n+1.
+   */
+  skip?: number;
 }
 
 /**
@@ -4257,10 +3847,17 @@ export interface JobsListOptionalParams extends msRest.RequestOptionsBase {
    */
   filter?: string;
   /**
-   * @member {string} [orderby] Specifies the the key by which the result
-   * collection should be ordered.
+   * @member {number} [top] Specifies a non-negative integer n that limits the
+   * number of items returned from a collection. The service returns the number
+   * of available items up to but not greater than the specified value n.
    */
-  orderby?: string;
+  top?: number;
+  /**
+   * @member {number} [skip] Specifies a non-negative integer n that excludes
+   * the first n items of the queried collection from the result. The service
+   * returns items starting at position n+1.
+   */
+  skip?: number;
 }
 
 /**
@@ -4322,8 +3919,8 @@ export interface StreamingLocatorsListOptionalParams extends msRest.RequestOptio
  */
 export interface LiveEventsCreateOptionalParams extends msRest.RequestOptionsBase {
   /**
-   * @member {boolean} [autoStart] The flag indicates if the resource should be
-   * automatically started on creation.
+   * @member {boolean} [autoStart] The flag indicates if auto start the Live
+   * Event.
    */
   autoStart?: boolean;
 }
@@ -4337,8 +3934,8 @@ export interface LiveEventsCreateOptionalParams extends msRest.RequestOptionsBas
  */
 export interface LiveEventsBeginCreateOptionalParams extends msRest.RequestOptionsBase {
   /**
-   * @member {boolean} [autoStart] The flag indicates if the resource should be
-   * automatically started on creation.
+   * @member {boolean} [autoStart] The flag indicates if auto start the Live
+   * Event.
    */
   autoStart?: boolean;
 }
@@ -4352,8 +3949,8 @@ export interface LiveEventsBeginCreateOptionalParams extends msRest.RequestOptio
  */
 export interface StreamingEndpointsCreateOptionalParams extends msRest.RequestOptionsBase {
   /**
-   * @member {boolean} [autoStart] The flag indicates if the resource should be
-   * automatically started on creation.
+   * @member {boolean} [autoStart] The flag indicates if auto start the Live
+   * Event.
    */
   autoStart?: boolean;
 }
@@ -4367,8 +3964,8 @@ export interface StreamingEndpointsCreateOptionalParams extends msRest.RequestOp
  */
 export interface StreamingEndpointsBeginCreateOptionalParams extends msRest.RequestOptionsBase {
   /**
-   * @member {boolean} [autoStart] The flag indicates if the resource should be
-   * automatically started on creation.
+   * @member {boolean} [autoStart] The flag indicates if auto start the Live
+   * Event.
    */
   autoStart?: boolean;
 }
@@ -4385,21 +3982,6 @@ export interface AzureMediaServicesOptions extends AzureServiceClientOptions {
   baseUri?: string;
 }
 
-
-/**
- * @interface
- * An interface representing the AccountFilterCollection.
- * A collection of AccountFilter items.
- *
- * @extends Array<AccountFilter>
- */
-export interface AccountFilterCollection extends Array<AccountFilter> {
-  /**
-   * @member {string} [odatanextLink] A link to the next page of the collection
-   * (when the collection contains too many results to return in one response).
-   */
-  odatanextLink?: string;
-}
 
 /**
  * @interface
@@ -4454,21 +4036,6 @@ export interface SubscriptionMediaServiceCollection extends Array<SubscriptionMe
  * @extends Array<Asset>
  */
 export interface AssetCollection extends Array<Asset> {
-  /**
-   * @member {string} [odatanextLink] A link to the next page of the collection
-   * (when the collection contains too many results to return in one response).
-   */
-  odatanextLink?: string;
-}
-
-/**
- * @interface
- * An interface representing the AssetFilterCollection.
- * A collection of AssetFilter items.
- *
- * @extends Array<AssetFilter>
- */
-export interface AssetFilterCollection extends Array<AssetFilter> {
   /**
    * @member {string} [odatanextLink] A link to the next page of the collection
    * (when the collection contains too many results to return in one response).
@@ -4615,38 +4182,6 @@ export interface StreamingEndpointListResult extends Array<StreamingEndpoint> {
 }
 
 /**
- * Defines values for FilterTrackPropertyType.
- * Possible values include: 'Unknown', 'Type', 'Name', 'Language', 'FourCC', 'Bitrate'
- * @readonly
- * @enum {string}
- */
-export type FilterTrackPropertyType = 'Unknown' | 'Type' | 'Name' | 'Language' | 'FourCC' | 'Bitrate';
-
-/**
- * Defines values for FilterTrackPropertyCompareOperation.
- * Possible values include: 'Equal', 'NotEqual'
- * @readonly
- * @enum {string}
- */
-export type FilterTrackPropertyCompareOperation = 'Equal' | 'NotEqual';
-
-/**
- * Defines values for MetricUnit.
- * Possible values include: 'Bytes', 'Count', 'Milliseconds'
- * @readonly
- * @enum {string}
- */
-export type MetricUnit = 'Bytes' | 'Count' | 'Milliseconds';
-
-/**
- * Defines values for MetricAggregationType.
- * Possible values include: 'Average', 'Count', 'Total'
- * @readonly
- * @enum {string}
- */
-export type MetricAggregationType = 'Average' | 'Count' | 'Total';
-
-/**
  * Defines values for StorageAccountType.
  * Possible values include: 'Primary', 'Secondary'
  * @readonly
@@ -4776,21 +4311,12 @@ export type H264Complexity = 'Speed' | 'Balanced' | 'Quality';
 
 /**
  * Defines values for EncoderNamedPreset.
- * Possible values include: 'H264SingleBitrateSD', 'H264SingleBitrate720p',
- * 'H264SingleBitrate1080p', 'AdaptiveStreaming', 'AACGoodQualityAudio',
- * 'H264MultipleBitrate1080p', 'H264MultipleBitrate720p', 'H264MultipleBitrateSD'
+ * Possible values include: 'AdaptiveStreaming', 'AACGoodQualityAudio', 'H264MultipleBitrate1080p',
+ * 'H264MultipleBitrate720p', 'H264MultipleBitrateSD'
  * @readonly
  * @enum {string}
  */
-export type EncoderNamedPreset = 'H264SingleBitrateSD' | 'H264SingleBitrate720p' | 'H264SingleBitrate1080p' | 'AdaptiveStreaming' | 'AACGoodQualityAudio' | 'H264MultipleBitrate1080p' | 'H264MultipleBitrate720p' | 'H264MultipleBitrateSD';
-
-/**
- * Defines values for InsightsType.
- * Possible values include: 'AudioInsightsOnly', 'VideoInsightsOnly', 'AllInsights'
- * @readonly
- * @enum {string}
- */
-export type InsightsType = 'AudioInsightsOnly' | 'VideoInsightsOnly' | 'AllInsights';
+export type EncoderNamedPreset = 'AdaptiveStreaming' | 'AACGoodQualityAudio' | 'H264MultipleBitrate1080p' | 'H264MultipleBitrate720p' | 'H264MultipleBitrateSD';
 
 /**
  * Defines values for OnErrorType.
@@ -4902,11 +4428,11 @@ export type LiveEventInputProtocol = 'FragmentedMP4' | 'RTMP';
 
 /**
  * Defines values for LiveEventEncodingType.
- * Possible values include: 'None', 'Basic', 'Standard'
+ * Possible values include: 'None', 'Basic'
  * @readonly
  * @enum {string}
  */
-export type LiveEventEncodingType = 'None' | 'Basic' | 'Standard';
+export type LiveEventEncodingType = 'None' | 'Basic';
 
 /**
  * Defines values for LiveEventResourceState.
@@ -4931,101 +4457,6 @@ export type StreamOptionsFlag = 'Default' | 'LowLatency';
  * @enum {string}
  */
 export type StreamingEndpointResourceState = 'Stopped' | 'Starting' | 'Running' | 'Stopping' | 'Deleting' | 'Scaling';
-
-/**
- * Contains response data for the list operation.
- */
-export type AccountFiltersListResponse = AccountFilterCollection & {
-  /**
-   * The underlying HTTP response.
-   */
-  _response: msRest.HttpResponse & {
-      /**
-       * The response body as text (string format)
-       */
-      bodyAsText: string;
-      /**
-       * The response body as parsed JSON or XML
-       */
-      parsedBody: AccountFilterCollection;
-    };
-};
-
-/**
- * Contains response data for the get operation.
- */
-export type AccountFiltersGetResponse = AccountFilter & {
-  /**
-   * The underlying HTTP response.
-   */
-  _response: msRest.HttpResponse & {
-      /**
-       * The response body as text (string format)
-       */
-      bodyAsText: string;
-      /**
-       * The response body as parsed JSON or XML
-       */
-      parsedBody: AccountFilter;
-    };
-};
-
-/**
- * Contains response data for the createOrUpdate operation.
- */
-export type AccountFiltersCreateOrUpdateResponse = AccountFilter & {
-  /**
-   * The underlying HTTP response.
-   */
-  _response: msRest.HttpResponse & {
-      /**
-       * The response body as text (string format)
-       */
-      bodyAsText: string;
-      /**
-       * The response body as parsed JSON or XML
-       */
-      parsedBody: AccountFilter;
-    };
-};
-
-/**
- * Contains response data for the update operation.
- */
-export type AccountFiltersUpdateResponse = AccountFilter & {
-  /**
-   * The underlying HTTP response.
-   */
-  _response: msRest.HttpResponse & {
-      /**
-       * The response body as text (string format)
-       */
-      bodyAsText: string;
-      /**
-       * The response body as parsed JSON or XML
-       */
-      parsedBody: AccountFilter;
-    };
-};
-
-/**
- * Contains response data for the listNext operation.
- */
-export type AccountFiltersListNextResponse = AccountFilterCollection & {
-  /**
-   * The underlying HTTP response.
-   */
-  _response: msRest.HttpResponse & {
-      /**
-       * The response body as text (string format)
-       */
-      bodyAsText: string;
-      /**
-       * The response body as parsed JSON or XML
-       */
-      parsedBody: AccountFilterCollection;
-    };
-};
 
 /**
  * Contains response data for the list operation.
@@ -5334,7 +4765,7 @@ export type AssetsListContainerSasResponse = AssetContainerSas & {
 /**
  * Contains response data for the getEncryptionKey operation.
  */
-export type AssetsGetEncryptionKeyResponse = StorageEncryptedAssetDecryptionData & {
+export type AssetsGetEncryptionKeyResponse = AssetStorageEncryptionKey & {
   /**
    * The underlying HTTP response.
    */
@@ -5346,26 +4777,7 @@ export type AssetsGetEncryptionKeyResponse = StorageEncryptedAssetDecryptionData
       /**
        * The response body as parsed JSON or XML
        */
-      parsedBody: StorageEncryptedAssetDecryptionData;
-    };
-};
-
-/**
- * Contains response data for the listStreamingLocators operation.
- */
-export type AssetsListStreamingLocatorsResponse = ListStreamingLocatorsResponse & {
-  /**
-   * The underlying HTTP response.
-   */
-  _response: msRest.HttpResponse & {
-      /**
-       * The response body as text (string format)
-       */
-      bodyAsText: string;
-      /**
-       * The response body as parsed JSON or XML
-       */
-      parsedBody: ListStreamingLocatorsResponse;
+      parsedBody: AssetStorageEncryptionKey;
     };
 };
 
@@ -5385,101 +4797,6 @@ export type AssetsListNextResponse = AssetCollection & {
        * The response body as parsed JSON or XML
        */
       parsedBody: AssetCollection;
-    };
-};
-
-/**
- * Contains response data for the list operation.
- */
-export type AssetFiltersListResponse = AssetFilterCollection & {
-  /**
-   * The underlying HTTP response.
-   */
-  _response: msRest.HttpResponse & {
-      /**
-       * The response body as text (string format)
-       */
-      bodyAsText: string;
-      /**
-       * The response body as parsed JSON or XML
-       */
-      parsedBody: AssetFilterCollection;
-    };
-};
-
-/**
- * Contains response data for the get operation.
- */
-export type AssetFiltersGetResponse = AssetFilter & {
-  /**
-   * The underlying HTTP response.
-   */
-  _response: msRest.HttpResponse & {
-      /**
-       * The response body as text (string format)
-       */
-      bodyAsText: string;
-      /**
-       * The response body as parsed JSON or XML
-       */
-      parsedBody: AssetFilter;
-    };
-};
-
-/**
- * Contains response data for the createOrUpdate operation.
- */
-export type AssetFiltersCreateOrUpdateResponse = AssetFilter & {
-  /**
-   * The underlying HTTP response.
-   */
-  _response: msRest.HttpResponse & {
-      /**
-       * The response body as text (string format)
-       */
-      bodyAsText: string;
-      /**
-       * The response body as parsed JSON or XML
-       */
-      parsedBody: AssetFilter;
-    };
-};
-
-/**
- * Contains response data for the update operation.
- */
-export type AssetFiltersUpdateResponse = AssetFilter & {
-  /**
-   * The underlying HTTP response.
-   */
-  _response: msRest.HttpResponse & {
-      /**
-       * The response body as text (string format)
-       */
-      bodyAsText: string;
-      /**
-       * The response body as parsed JSON or XML
-       */
-      parsedBody: AssetFilter;
-    };
-};
-
-/**
- * Contains response data for the listNext operation.
- */
-export type AssetFiltersListNextResponse = AssetFilterCollection & {
-  /**
-   * The underlying HTTP response.
-   */
-  _response: msRest.HttpResponse & {
-      /**
-       * The response body as text (string format)
-       */
-      bodyAsText: string;
-      /**
-       * The response body as parsed JSON or XML
-       */
-      parsedBody: AssetFilterCollection;
     };
 };
 
@@ -5734,25 +5051,6 @@ export type JobsGetResponse = Job & {
  * Contains response data for the create operation.
  */
 export type JobsCreateResponse = Job & {
-  /**
-   * The underlying HTTP response.
-   */
-  _response: msRest.HttpResponse & {
-      /**
-       * The response body as text (string format)
-       */
-      bodyAsText: string;
-      /**
-       * The response body as parsed JSON or XML
-       */
-      parsedBody: Job;
-    };
-};
-
-/**
- * Contains response data for the update operation.
- */
-export type JobsUpdateResponse = Job & {
   /**
    * The underlying HTTP response.
    */

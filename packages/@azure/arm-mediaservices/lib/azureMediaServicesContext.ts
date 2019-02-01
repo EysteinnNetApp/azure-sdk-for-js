@@ -44,7 +44,7 @@ export class AzureMediaServicesContext extends msRestAzure.AzureServiceClient {
 
     super(credentials, options);
 
-    this.apiVersion = '2018-07-01';
+    this.apiVersion = '1919-09-12-preview';
     this.acceptLanguage = 'en-US';
     this.longRunningOperationRetryTimeout = 30;
     this.baseUri = options.baseUri || this.baseUri || "https://management.azure.com";

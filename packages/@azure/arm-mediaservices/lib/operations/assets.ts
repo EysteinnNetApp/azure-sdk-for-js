@@ -274,7 +274,7 @@ export class Assets {
    * @param assetName The Asset name.
    * @param callback The callback
    */
-  getEncryptionKey(resourceGroupName: string, accountName: string, assetName: string, callback: msRest.ServiceCallback<Models.StorageEncryptedAssetDecryptionData>): void;
+  getEncryptionKey(resourceGroupName: string, accountName: string, assetName: string, callback: msRest.ServiceCallback<Models.AssetStorageEncryptionKey>): void;
   /**
    * @param resourceGroupName The name of the resource group within the Azure subscription.
    * @param accountName The Media Services account name.
@@ -282,8 +282,8 @@ export class Assets {
    * @param options The optional parameters
    * @param callback The callback
    */
-  getEncryptionKey(resourceGroupName: string, accountName: string, assetName: string, options: msRest.RequestOptionsBase, callback: msRest.ServiceCallback<Models.StorageEncryptedAssetDecryptionData>): void;
-  getEncryptionKey(resourceGroupName: string, accountName: string, assetName: string, options?: msRest.RequestOptionsBase | msRest.ServiceCallback<Models.StorageEncryptedAssetDecryptionData>, callback?: msRest.ServiceCallback<Models.StorageEncryptedAssetDecryptionData>): Promise<Models.AssetsGetEncryptionKeyResponse> {
+  getEncryptionKey(resourceGroupName: string, accountName: string, assetName: string, options: msRest.RequestOptionsBase, callback: msRest.ServiceCallback<Models.AssetStorageEncryptionKey>): void;
+  getEncryptionKey(resourceGroupName: string, accountName: string, assetName: string, options?: msRest.RequestOptionsBase | msRest.ServiceCallback<Models.AssetStorageEncryptionKey>, callback?: msRest.ServiceCallback<Models.AssetStorageEncryptionKey>): Promise<Models.AssetsGetEncryptionKeyResponse> {
     return this.client.sendOperationRequest(
       {
         resourceGroupName,
@@ -293,43 +293,6 @@ export class Assets {
       },
       getEncryptionKeyOperationSpec,
       callback) as Promise<Models.AssetsGetEncryptionKeyResponse>;
-  }
-
-  /**
-   * Lists Streaming Locators which are associated with this asset.
-   * @summary List Streaming Locators
-   * @param resourceGroupName The name of the resource group within the Azure subscription.
-   * @param accountName The Media Services account name.
-   * @param assetName The Asset name.
-   * @param [options] The optional parameters
-   * @returns Promise<Models.AssetsListStreamingLocatorsResponse>
-   */
-  listStreamingLocators(resourceGroupName: string, accountName: string, assetName: string, options?: msRest.RequestOptionsBase): Promise<Models.AssetsListStreamingLocatorsResponse>;
-  /**
-   * @param resourceGroupName The name of the resource group within the Azure subscription.
-   * @param accountName The Media Services account name.
-   * @param assetName The Asset name.
-   * @param callback The callback
-   */
-  listStreamingLocators(resourceGroupName: string, accountName: string, assetName: string, callback: msRest.ServiceCallback<Models.ListStreamingLocatorsResponse>): void;
-  /**
-   * @param resourceGroupName The name of the resource group within the Azure subscription.
-   * @param accountName The Media Services account name.
-   * @param assetName The Asset name.
-   * @param options The optional parameters
-   * @param callback The callback
-   */
-  listStreamingLocators(resourceGroupName: string, accountName: string, assetName: string, options: msRest.RequestOptionsBase, callback: msRest.ServiceCallback<Models.ListStreamingLocatorsResponse>): void;
-  listStreamingLocators(resourceGroupName: string, accountName: string, assetName: string, options?: msRest.RequestOptionsBase | msRest.ServiceCallback<Models.ListStreamingLocatorsResponse>, callback?: msRest.ServiceCallback<Models.ListStreamingLocatorsResponse>): Promise<Models.AssetsListStreamingLocatorsResponse> {
-    return this.client.sendOperationRequest(
-      {
-        resourceGroupName,
-        accountName,
-        assetName,
-        options
-      },
-      listStreamingLocatorsOperationSpec,
-      callback) as Promise<Models.AssetsListStreamingLocatorsResponse>;
   }
 
   /**
@@ -563,33 +526,7 @@ const getEncryptionKeyOperationSpec: msRest.OperationSpec = {
   ],
   responses: {
     200: {
-      bodyMapper: Mappers.StorageEncryptedAssetDecryptionData
-    },
-    default: {
-      bodyMapper: Mappers.ApiError
-    }
-  },
-  serializer
-};
-
-const listStreamingLocatorsOperationSpec: msRest.OperationSpec = {
-  httpMethod: "POST",
-  path: "subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Media/mediaServices/{accountName}/assets/{assetName}/listStreamingLocators",
-  urlParameters: [
-    Parameters.subscriptionId,
-    Parameters.resourceGroupName,
-    Parameters.accountName,
-    Parameters.assetName
-  ],
-  queryParameters: [
-    Parameters.apiVersion
-  ],
-  headerParameters: [
-    Parameters.acceptLanguage
-  ],
-  responses: {
-    200: {
-      bodyMapper: Mappers.ListStreamingLocatorsResponse
+      bodyMapper: Mappers.AssetStorageEncryptionKey
     },
     default: {
       bodyMapper: Mappers.ApiError
