@@ -347,6 +347,10 @@ export interface ManagedClusterAgentPoolProfile {
    * 'AvailabilitySet'
    */
   type?: AgentPoolType;
+  /**
+   * @member {string[]} [availabilityZones] Availability zones for nodes
+   */
+  availabilityZones?: string[];
 }
 
 /**
