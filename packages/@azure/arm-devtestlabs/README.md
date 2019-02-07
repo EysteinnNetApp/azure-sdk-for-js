@@ -15,7 +15,7 @@ npm install @azure/arm-devtestlabs
 
 ### How to use
 
-#### nodejs - Authentication, client creation and list providerOperations as an example written in TypeScript.
+#### nodejs - Authentication, client creation and listBySubscription lab as an example written in TypeScript.
 
 ##### Install @azure/ms-rest-nodeauth
 
@@ -34,7 +34,10 @@ const subscriptionId = process.env["AZURE_SUBSCRIPTION_ID"];
 
 msRestNodeAuth.interactiveLogin().then((creds) => {
   const client = new DevTestLabsClient(creds, subscriptionId);
-  client.providerOperations.list().then((result) => {
+  const filter = "testfilter";
+  const top = 1;
+  const orderBy = "testorderBy";
+  client.lab.listBySubscription(filter, top, orderBy).then((result) => {
     console.log("The result is:");
     console.log(result);
   });
@@ -43,7 +46,7 @@ msRestNodeAuth.interactiveLogin().then((creds) => {
 });
 ```
 
-#### browser - Authentication, client creation and list providerOperations as an example written in JavaScript.
+#### browser - Authentication, client creation and listBySubscription lab as an example written in JavaScript.
 
 ##### Install @azure/ms-rest-browserauth
 
@@ -77,7 +80,10 @@ See https://github.com/Azure/ms-rest-browserauth to learn how to authenticate to
           authManager.login();
         }
         const client = new Azure.ArmDevtestlabs.DevTestLabsClient(res.creds, subscriptionId);
-        client.providerOperations.list().then((result) => {
+        const filter = "testfilter";
+        const top = 1;
+        const orderBy = "testorderBy";
+        client.lab.listBySubscription(filter, top, orderBy).then((result) => {
           console.log("The result is:");
           console.log(result);
         }).catch((err) => {
