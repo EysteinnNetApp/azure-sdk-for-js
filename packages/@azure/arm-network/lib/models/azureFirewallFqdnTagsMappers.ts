@@ -78,7 +78,7 @@ export {
   CustomRules,
   CustomRule,
   MatchCondition,
-  MatchVariable1,
+  MatchVariable,
   ApplicationGatewayAutoscaleConfiguration,
   ManagedServiceIdentity,
   ManagedServiceIdentityUserAssignedIdentitiesValue,

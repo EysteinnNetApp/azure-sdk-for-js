@@ -2684,31 +2684,33 @@ export interface ApplicationGatewayWebApplicationFirewallConfiguration {
  */
 export interface PolicySettings {
   /**
-   * @member {EnabledState} [enabledState] describes if the policy is in
-   * enabled state or disabled state. Possible values include: 'Disabled',
-   * 'Enabled'
+   * @member {WebApplicationFirewallEnabledState} [enabledState] describes if
+   * the policy is in enabled state or disabled state. Possible values include:
+   * 'Disabled', 'Enabled'
    */
-  enabledState?: EnabledState;
+  enabledState?: WebApplicationFirewallEnabledState;
   /**
-   * @member {Mode} [mode] Describes if it is in detection mode  or prevention
-   * mode at policy level. Possible values include: 'Prevention', 'Detection'
+   * @member {WebApplicationFirewallMode} [mode] Describes if it is in
+   * detection mode  or prevention mode at policy level. Possible values
+   * include: 'Prevention', 'Detection'
    */
-  mode?: Mode;
+  mode?: WebApplicationFirewallMode;
 }
 
 /**
  * @interface
- * An interface representing MatchVariable1.
+ * An interface representing MatchVariable.
  * Define match variables
  *
  */
-export interface MatchVariable1 {
+export interface MatchVariable {
   /**
-   * @member {MatchVariable} name Match Variable. Possible values include:
-   * 'RemoteAddr', 'RequestMethod', 'QueryString', 'PostArgs', 'RequestUri',
-   * 'RequestHeaders', 'RequestBody', 'RequestCookies'
+   * @member {WebApplicationFirewallMatchVariable} name Match Variable.
+   * Possible values include: 'RemoteAddr', 'RequestMethod', 'QueryString',
+   * 'PostArgs', 'RequestUri', 'RequestHeaders', 'RequestBody',
+   * 'RequestCookies'
    */
-  name: MatchVariable;
+  name: WebApplicationFirewallMatchVariable;
   /**
    * @member {string} [selector] Describes field of the matchVariable
    * collection
@@ -2724,15 +2726,16 @@ export interface MatchVariable1 {
  */
 export interface MatchCondition {
   /**
-   * @member {MatchVariable1[]} matchVariables List of match variables
+   * @member {MatchVariable[]} matchVariables List of match variables
    */
-  matchVariables: MatchVariable1[];
+  matchVariables: MatchVariable[];
   /**
-   * @member {Operator} operator Describes operator to be matched. Possible
-   * values include: 'IPMatch', 'Equal', 'Contains', 'LessThan', 'GreaterThan',
-   * 'LessThanOrEqual', 'GreaterThanOrEqual', 'BeginsWith', 'EndsWith', 'Regex'
+   * @member {WebApplicationFirewallOperator} operator Describes operator to be
+   * matched. Possible values include: 'IPMatch', 'Equal', 'Contains',
+   * 'LessThan', 'GreaterThan', 'LessThanOrEqual', 'GreaterThanOrEqual',
+   * 'BeginsWith', 'EndsWith', 'Regex'
    */
-  operator: Operator;
+  operator: WebApplicationFirewallOperator;
   /**
    * @member {boolean} [negateCondition] Describes if this is negate condition
    * or not
@@ -2743,9 +2746,10 @@ export interface MatchCondition {
    */
   matchValues: string[];
   /**
-   * @member {Transform[]} [transforms] List of transforms
+   * @member {WebApplicationFirewallTransform[]} [transforms] List of
+   * transforms
    */
-  transforms?: Transform[];
+  transforms?: WebApplicationFirewallTransform[];
 }
 
 /**
@@ -2777,10 +2781,10 @@ export interface CustomRule {
    */
   matchConditions: MatchCondition[];
   /**
-   * @member {Action} action Type of Actions. Possible values include: 'Allow',
-   * 'Block', 'Log'
+   * @member {WebApplicationFirewallAction} action Type of Actions. Possible
+   * values include: 'Allow', 'Block', 'Log'
    */
-  action: Action;
+  action: WebApplicationFirewallAction;
 }
 
 /**
@@ -11897,55 +11901,55 @@ export type ApplicationGatewayOperationalState = 'Stopped' | 'Starting' | 'Runni
 export type ApplicationGatewayFirewallMode = 'Detection' | 'Prevention';
 
 /**
- * Defines values for EnabledState.
+ * Defines values for WebApplicationFirewallEnabledState.
  * Possible values include: 'Disabled', 'Enabled'
  * @readonly
  * @enum {string}
  */
-export type EnabledState = 'Disabled' | 'Enabled';
+export type WebApplicationFirewallEnabledState = 'Disabled' | 'Enabled';
 
 /**
- * Defines values for Mode.
+ * Defines values for WebApplicationFirewallMode.
  * Possible values include: 'Prevention', 'Detection'
  * @readonly
  * @enum {string}
  */
-export type Mode = 'Prevention' | 'Detection';
+export type WebApplicationFirewallMode = 'Prevention' | 'Detection';
 
 /**
- * Defines values for MatchVariable.
+ * Defines values for WebApplicationFirewallMatchVariable.
  * Possible values include: 'RemoteAddr', 'RequestMethod', 'QueryString', 'PostArgs', 'RequestUri',
  * 'RequestHeaders', 'RequestBody', 'RequestCookies'
  * @readonly
  * @enum {string}
  */
-export type MatchVariable = 'RemoteAddr' | 'RequestMethod' | 'QueryString' | 'PostArgs' | 'RequestUri' | 'RequestHeaders' | 'RequestBody' | 'RequestCookies';
+export type WebApplicationFirewallMatchVariable = 'RemoteAddr' | 'RequestMethod' | 'QueryString' | 'PostArgs' | 'RequestUri' | 'RequestHeaders' | 'RequestBody' | 'RequestCookies';
 
 /**
- * Defines values for Operator.
+ * Defines values for WebApplicationFirewallOperator.
  * Possible values include: 'IPMatch', 'Equal', 'Contains', 'LessThan', 'GreaterThan',
  * 'LessThanOrEqual', 'GreaterThanOrEqual', 'BeginsWith', 'EndsWith', 'Regex'
  * @readonly
  * @enum {string}
  */
-export type Operator = 'IPMatch' | 'Equal' | 'Contains' | 'LessThan' | 'GreaterThan' | 'LessThanOrEqual' | 'GreaterThanOrEqual' | 'BeginsWith' | 'EndsWith' | 'Regex';
+export type WebApplicationFirewallOperator = 'IPMatch' | 'Equal' | 'Contains' | 'LessThan' | 'GreaterThan' | 'LessThanOrEqual' | 'GreaterThanOrEqual' | 'BeginsWith' | 'EndsWith' | 'Regex';
 
 /**
- * Defines values for Transform.
+ * Defines values for WebApplicationFirewallTransform.
  * Possible values include: 'Lowercase', 'Trim', 'UrlDecode', 'UrlEncode', 'RemoveNulls',
  * 'HtmlEntityDecode'
  * @readonly
  * @enum {string}
  */
-export type Transform = 'Lowercase' | 'Trim' | 'UrlDecode' | 'UrlEncode' | 'RemoveNulls' | 'HtmlEntityDecode';
+export type WebApplicationFirewallTransform = 'Lowercase' | 'Trim' | 'UrlDecode' | 'UrlEncode' | 'RemoveNulls' | 'HtmlEntityDecode';
 
 /**
- * Defines values for Action.
+ * Defines values for WebApplicationFirewallAction.
  * Possible values include: 'Allow', 'Block', 'Log'
  * @readonly
  * @enum {string}
  */
-export type Action = 'Allow' | 'Block' | 'Log';
+export type WebApplicationFirewallAction = 'Allow' | 'Block' | 'Log';
 
 /**
  * Defines values for ResourceIdentityType.

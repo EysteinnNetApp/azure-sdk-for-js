@@ -3536,7 +3536,7 @@ export const ApplicationGatewayWebApplicationFirewallConfiguration: msRest.Compo
 };
 
 export const PolicySettings: msRest.CompositeMapper = {
-  serializedName: "policySettings",
+  serializedName: "PolicySettings",
   type: {
     name: "Composite",
     className: "PolicySettings",
@@ -3557,11 +3557,11 @@ export const PolicySettings: msRest.CompositeMapper = {
   }
 };
 
-export const MatchVariable1: msRest.CompositeMapper = {
+export const MatchVariable: msRest.CompositeMapper = {
   serializedName: "MatchVariable",
   type: {
     name: "Composite",
-    className: "MatchVariable1",
+    className: "MatchVariable",
     modelProperties: {
       name: {
         required: true,
@@ -3594,7 +3594,7 @@ export const MatchCondition: msRest.CompositeMapper = {
           element: {
             type: {
               name: "Composite",
-              className: "MatchVariable1"
+              className: "MatchVariable"
             }
           }
         }
